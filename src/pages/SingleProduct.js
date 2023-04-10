@@ -20,7 +20,7 @@ const SingleProduct = () => {
   const userCartState = useSelector((state) => state.auth.cartProducts);
   // console.log(userCartState);
   // console.log(productState)
-  // console.log(productState?.ratings)
+  // console.log(productState?.description)
   const navigate = useNavigate()
   useEffect(() => {
     dispatch(getSingleProduct(getProductId));
@@ -125,7 +125,7 @@ const SingleProduct = () => {
                   </div>
                   <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
                   {added === false && <>
-                    <h3 className="product-heading">Quantity :</h3>
+                    <h3 className="product-heading">Số lượng :</h3>
                     <div className="">
                       <input
                         type="number"
@@ -165,7 +165,7 @@ const SingleProduct = () => {
         <Container class1="description-wrapper py-5 home-wrapper-2">
           <div className="row">
             <div className="col-12">
-              <h4>Description</h4>
+              <h4 style={{fontWeight:"600"}}>Mô Tả:</h4>
               <div className="bg-white p-3">
                 <p>
                   {productState?.description}
@@ -181,16 +181,16 @@ const SingleProduct = () => {
               <div className="review-inner-wrapper">
                 <div className="review-head d-flex justify-content-between align-items-end">
                   <div>
-                    <h4 className="mb-2">Customer Reviews</h4>
+                    <h4 className="mb-2">Khách hàng Reviews</h4>
                     <div className="d-flex align-items-center gap-10">
                       <ReactStars
                         count={5}
                         size={24}
-                        value={4}
+                        value={parseFloat(productState?.totalrating)}
                         edit={false}
                         activeColor="#ffd700"
                       />
-                      <p className="mb-0">Based on 2 Reviews</p>
+                      <p className="mb-0">Dựa trên {productState?.ratings.length} Reviews</p>
                     </div>
                   </div>
                     <div>
@@ -336,7 +336,7 @@ const SingleProduct = () => {
         <Container class1="description-wrapper py-5 home-wrapper-2">
           <div className="row">
             <div className="col-12">
-              <h4>Description</h4>
+              <h4 style={{fontWeight:"600"}}>Mô tả</h4>
               <div className="bg-white p-3">
                 <p>
                   {productState?.description}
@@ -352,7 +352,7 @@ const SingleProduct = () => {
               <div className="review-inner-wrapper">
                 <div className="review-head d-flex justify-content-between align-items-end">
                   <div>
-                    <h4 className="mb-2">Customer Reviews</h4>
+                    <h4 className="mb-2">Khách hàng Reviews</h4>
                     <div className="d-flex align-items-center gap-10">
                       <ReactStars
                         count={5}
@@ -361,7 +361,7 @@ const SingleProduct = () => {
                         edit={false}
                         activeColor="#ffd700"
                       />
-                      <p className="mb-0">Based on 2 Reviews</p>
+                      <p className="mb-0">Dựa trên {productState?.ratings.length} Reviews</p>
                     </div>
                   </div>
                     <div>

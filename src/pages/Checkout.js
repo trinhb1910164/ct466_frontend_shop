@@ -116,14 +116,14 @@ const Checkout = () => {
                   <div className="w-100">
                     <div className="d-flex justify-content-between align-items-center"style={{marginLeft:"500px"}}>
                       <button className="button" type="submit">
-                        Continue to Shipping
+                        Đặt Hàng
                       </button>
                     </div>
                   </div>
                 </form>
                 <Link to="/cart" className="text-dark">
                         <BiArrowBack className="me-2" />
-                        Return to Cart
+                        Trở về giỏ hàng
                 </Link>
               </div>
             </div>
