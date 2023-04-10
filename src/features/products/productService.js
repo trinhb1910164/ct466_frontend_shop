@@ -1,5 +1,5 @@
 import axios from "axios";
-import { base_url } from "../../utils/axiosconfig";
+import { base_url, config } from "../../utils/axiosconfig";
 
 const getProducts = async () => {
   const response = await axios.get(`${base_url}product/`);
@@ -14,7 +14,7 @@ const getAProduct = async (id) => {
 };
 
 const rating = async (ratingData) => {
-  const response = await axios.put(`${base_url}product/rating/`, ratingData);
+  const response = await axios.put(`${base_url}product/rating/`, ratingData, config);
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }

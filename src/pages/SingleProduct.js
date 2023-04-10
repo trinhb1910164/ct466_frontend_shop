@@ -7,9 +7,8 @@ import { useLocation, useNavigate} from "react-router-dom";
 import { addProductCart, getUserCart } from "../features/user/userSlice";
 import ShowRating from "../components/ShowRating";
 
-
 const SingleProduct = () => {
-  
+
   const dispatch = useDispatch();
   const [quantity, setquantity] = useState(1);
   const [added, setadded ]= useState(false);
@@ -46,7 +45,7 @@ const SingleProduct = () => {
     dispatch(addProductCart({productId:getProductId,quantity:quantity,price:productState?.price}));
     navigate("/cart")
   }
-  // console.log(getProductId)
+  
   
   if(productState?.quantity>0){
     return (
@@ -103,7 +102,9 @@ const SingleProduct = () => {
                       edit={false}
                       activeColor="#ffd700"
                     />
-                    <p className="mb-0 t-review">( 2 Reviews )</p>
+                    {productState?.ratings && <>
+                      <p className="mb-0 t-review">( {productState?.ratings.length} Reviews )</p>
+                    </>}
                   </div>
                   <a className="review-btn" href="#review">
                     Write a Review
@@ -247,6 +248,7 @@ const SingleProduct = () => {
     return (
       <>
         <Container class1="main-product-wrapper py-5 home-wrapper-2">
+          <h3 style={{fontWeight:"600", textAlign:"center", marginBottom:"40px", color:"red"}}>CHI TIẾT SẢN PHẨM</h3>
           <div className="row">
             <div className="col-6">
               <div className="other-product-images d-flex flex-wrap gap-15">
@@ -297,7 +299,9 @@ const SingleProduct = () => {
                       edit={false}
                       activeColor="#ffd700"
                     />
-                    <p className="mb-0 t-review">( 2 Reviews )</p>
+                    {productState?.ratings && <>
+                      <p className="mb-0 t-review">( {productState?.ratings.length} Reviews )</p>
+                    </>}
                   </div>
                   <a className="review-btn" href="#review">
                     Write a Review
@@ -314,33 +318,9 @@ const SingleProduct = () => {
                   </div>
                   <div className="d-flex gap-10 align-items-center my-2">
                     <h3 className="product-heading">Trạng thái :</h3>
-                    <p className="product-data" style={{color:"red", fontSize:"20px"}}>Hết hàng</p>
+                    <p className="product-data" style={{color:"red", fontSize:"20px"}}>Hết Hàng</p>
                   </div>
-                  <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
-                  <h3 className="product-heading">Quantity :</h3>
-                    <div className="">
-                      <input
-                        type="number"
-                        name=""
-                        min={1}
-                        max={10}
-                        className="form-control"
-                        style={{ width: "70px" }}
-                        id=""
-                        onChange={(e)=>setquantity(e.target.value)}
-                        value={quantity}
-                      />
-                    </div>
-                    <div className="d-flex align-items-center gap-30 ms-5">
-                      <button
-                        className="button border-0"
-                        type="button" onClick={() => {uploadCart()}}
-                      >
-                        Thêm vào Giỏ Hàng
-                      </button>
-                    </div>
-                    
-                  </div>
+                  <div><p>Shop sẽ cập nhật hàng sớm nhất cho quý khách!</p></div>
                   <div className="d-flex gap-10 flex-column  my-3">
                     <h3 className="product-heading">Vận chuyển và Trả hàng:</h3>
                     <p className="product-data">
@@ -356,7 +336,7 @@ const SingleProduct = () => {
         <Container class1="description-wrapper py-5 home-wrapper-2">
           <div className="row">
             <div className="col-12">
-              <h4>Mô tả:</h4>
+              <h4>Description</h4>
               <div className="bg-white p-3">
                 <p>
                   {productState?.description}
@@ -384,7 +364,6 @@ const SingleProduct = () => {
                       <p className="mb-0">Based on 2 Reviews</p>
                     </div>
                   </div>
-                  {/* {orderedProduct && ( */}
                     <div>
                       <a className="text-dark text-decoration-underline" href="">
                         Write a Review
@@ -396,13 +375,16 @@ const SingleProduct = () => {
                   <h4>Write a Review</h4>
                   <form action=""  className="d-flex flex-column gap-15">
                     <div>
-                      <ReactStars
-                        count={5}
-                        size={24}
-                        value={5}
-                        edit={true}
-                        activeColor="#ffd700"
-                        name="star"
+                    <input
+                        type="number"
+                        name=""
+                        min={1}
+                        max={5}
+                        className="form-control"
+                        style={{ width: "70px" }}
+                        id=""
+                        onChange={(e)=>setstar(e.target.value)}
+                        value={star}
                       />
                     </div>
                     <div>
@@ -413,32 +395,20 @@ const SingleProduct = () => {
                         cols="30"
                         rows="4"
                         placeholder="Comments"
-                        
+                        onChange={(e)=>setcomment(e.target.value)}
+                        value={comment}
                       ></textarea>
                       <div className="error"></div>
                     </div>
                     <div className="d-flex justify-content-end">
-                      <button className="button border-0" type="submit">Submit Review</button>
+                    <button
+                        className="button border-0"
+                        type="button" onClick={() => {uploadRating()}}
+                      >Submit Review</button>
                     </div>
                   </form>
                 </div>
-                <div className="reviews mt-4">
-                  <div className="review">
-                    <div className="d-flex gap-10 align-items-center">
-                      {/* <h6 className="mb-0">{productState?.ratings[0].firstname}</h6> */}
-                      <ReactStars
-                        count={5}
-                        size={24}
-                        value={4}
-                        edit={false}
-                        activeColor="#ffd700"
-                      />
-                    </div>
-                    <p className="mt-3">
-                      {/* {productState?.ratings[0].comment} */}
-                    </p>
-                  </div>
-                </div>
+                <ShowRating/>
               </div>
             </div>
           </div>
